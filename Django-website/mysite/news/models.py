@@ -17,3 +17,10 @@ class News(models.Model):
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
         ordering = ['-created_at', 'title']
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=150, db_index=True, verbose_name='Наименование категории')
+
+    def __str__(self):
+        return self.title
