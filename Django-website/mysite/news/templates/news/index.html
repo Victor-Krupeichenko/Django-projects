@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
-
 </head>
 <body>
-    <h1>{{title}}</h1>
-    {{news}}
+<h1>{{title}}</h1>
+{% for item in news %}
+<div>
+    <p>{{item.title}}</p>
+    <p>{{item.content}}</p>
+    <p>{{item.created_at}}</p>
+</div>
+<hr>
+{% endfor %}
 </body>
 </html>
