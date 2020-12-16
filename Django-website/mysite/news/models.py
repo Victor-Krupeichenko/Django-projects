@@ -24,3 +24,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name ='Категория'
+        verbose_name_plural = 'Категории'
+        ordering = ['title']
