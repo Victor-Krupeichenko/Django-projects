@@ -1,5 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from news.models import News
+
 
 def index(request):
-    return HttpResponse('<h1>Test string</h1>')
+    news = News.odjects.all()
+    context = {
+        'news': news,
+        'title': 'Список новостей'
+    }
+    return render(request, 'news/index.html', context)
