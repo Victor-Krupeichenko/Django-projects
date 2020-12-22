@@ -17,3 +17,10 @@ def get_categories(request, category_id):
         'category': category
     }
     return render(request, 'news/category.html', context)
+
+def view_news(request, news_id):
+    item = News.objects.get(pk=news_id)
+    context = {
+        'item':item
+    }
+    return render(request, 'news/view_news.html', context)
