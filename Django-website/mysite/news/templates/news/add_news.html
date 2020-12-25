@@ -11,6 +11,7 @@
     {% csrf_token %}
     {{ form.non_field.errors }}
     <!--  {{ form.as_p }}-->
+    {% comment %}
     <div class="form-group">
         <label for="{{ form.title.id_for_label }}">Название</label>
         {{ form.title }}
@@ -39,6 +40,17 @@
             {{ form.category.errors }}
         </div>
     </div>
+    {% endcomment %}
+
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div class="invalid_feedback">
+            {{ field.errors }}
+        </div>
+    </div>
+    {% endfor %}
     <button type="submit" class="btn btn-primary btn-block">Добавить</button>
 </form>
 {% endblock %}
