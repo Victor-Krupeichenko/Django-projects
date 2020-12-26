@@ -3,29 +3,24 @@
 {{ item.title }}
 {% endblock %}
 
-<body>
 {% block sidebar %}
 {% include 'inc/_sidebar.html' %}
 {% endblock %}
-
 {% block content %}
-
-<div class="card mb-2">
+<div class="card mb-3">
     <div class="card-header">
-        Категория:  <a href="{{item.category.get_absolute_url}}" >{{ item.category }}</a>
+        Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
     </div>
     <div class="card-body">
-        <div class="media">
-            {% if item.photo %}
-            <img src="{{ item.photo.url }}" alt="" width="350" height="210" class="mr-2">
-            {% else %}
-            <img src="https://picsum.photos/id/237/350/210" alt="" class="mr-2">
-            {% endif %}
-            <div class="media-body">
-                <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.content|linebreaks }}</p>
-            </div>
-        </div>
+        {% if item.photo %}
+        <img src="{{ item.photo.url }}" alt="" width="350" height="200" class="float-left mr-3">
+        {% else %}
+        <img src="https://picsum.photos/seed/picsum/350/200" alt="" class="float-left mr-3">
+        {% endif %}
+
+        <h5 class="card-title">{{ item.title }}</h5>
+        <p class="card-text">{{ item.content|linebreaks}}</p>
+
     </div>
     <div class="card-footer text-muted">Опубликовано: {{ item.created_at }}</div>
 </div>
