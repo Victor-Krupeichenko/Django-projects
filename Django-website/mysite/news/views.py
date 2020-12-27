@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewsForm
 from .models import News, Category
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 class HomeNews(ListView):
     model = News
@@ -25,5 +25,11 @@ class NewsCategory(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список категорий'
         return context
+
     def get_queryset(self):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+
+
+class CreateNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
