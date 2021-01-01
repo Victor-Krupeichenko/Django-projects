@@ -21,6 +21,7 @@ class NewsAdmin(admin.ModelAdmin):
             return 'Нет фото'
 
     get_photo.short_description = 'Миниатюра'
+    save_on_top = True
 
 
 class CategoryAdmin(admin.ModelAdmin):
