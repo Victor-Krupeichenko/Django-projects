@@ -1,0 +1,20 @@
+#header {
+    background : #9c27b0
+}
+.module h2, .module caption, .inline-group h2 {
+    background : #e040fb
+}
+a:-webkit-any-link {
+    color: #4a148c
+}
+
+#content-related .module h2 {
+    color: #e65100
+}
+
+#content-related h3 {
+    color: #e91e63
+}
+div.breadcrumbs {
+    background : #4caf50
+}
