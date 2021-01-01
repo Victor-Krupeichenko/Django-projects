@@ -1,0 +1,10 @@
+body {
+background-image: url('add_news.jpg')
+}
+label {
+   color: #f50057
+}
+
+input[type="file" i] {
+color : #f50057
+}
