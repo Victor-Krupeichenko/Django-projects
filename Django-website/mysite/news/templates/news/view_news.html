@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/view_news.css' %}">
+{% endblock %}
+
 {% block title %}
 {{ item.title }}
 {% endblock %}
