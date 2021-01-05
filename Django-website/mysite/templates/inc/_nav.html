@@ -13,9 +13,11 @@
         </ul>
         <span class="navbar-text">
             {% if request.user.is_authenticated %}
-                Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+            Добро пожаловать, {{ user.username }} |
+            <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Выход</a>
             {% else %}
-            <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'user_login' %}" class="btn btn-primary btn-sm">Авторизоватся</a>
+            <a href="{% url 'user_register' %}" class="btn btn-secondary btn-sm">Зарегистрироватся</a>
             {% endif %}
         </span>
     </div>
