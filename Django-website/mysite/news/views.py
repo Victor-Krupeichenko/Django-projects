@@ -1,7 +1,28 @@
-from .forms import NewsForm
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from .forms import NewsForm, UserRegisterForm
 from .models import News, Category
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+
+def user_register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Регистрация прошла успешно')
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка регистраии')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'news/user_register.html', {'form':form})
+
+
+def user_login(request):
+    pass
 
 
 class NewsHome(ListView):
