@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
 from .forms import NewsForm, UserRegisterForm, UserLoginForm
 from .models import News, Category
@@ -33,6 +33,10 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, 'news/user_login.html', {'form':form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
 
 
 class NewsHome(ListView):
