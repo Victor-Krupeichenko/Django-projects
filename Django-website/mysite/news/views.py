@@ -1,6 +1,7 @@
 from django.contrib import messages
+from django.contrib.auth import login
 from django.shortcuts import redirect, render
-from .forms import NewsForm, UserRegisterForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm
 from .models import News, Category
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +12,8 @@ def user_register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, 'Регистрация прошла успешно')
             return redirect('home')
         else:
@@ -22,7 +24,15 @@ def user_register(request):
 
 
 def user_login(request):
-    pass
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'news/user_login.html', {'form':form})
 
 
 class NewsHome(ListView):
