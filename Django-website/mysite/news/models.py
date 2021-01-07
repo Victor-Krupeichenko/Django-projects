@@ -1,11 +1,12 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse_lazy
 
 class News(models.Model):
     title = models.CharField(db_index=True, max_length=150, verbose_name='Название')
-    content = models.TextField(db_index=True, verbose_name='Текст')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    content = RichTextUploadingField(db_index=True, verbose_name='Текст')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     photo = models.ImageField(blank=True, upload_to='photos/%Y/%m/%d/', verbose_name='фото')
     is_published = models.BooleanField(default=True, verbose_name='опубликовано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
