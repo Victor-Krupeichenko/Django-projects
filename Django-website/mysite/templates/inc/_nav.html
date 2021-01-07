@@ -1,3 +1,9 @@
+{% load static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock %}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -10,15 +16,19 @@
             {% if request.user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_news' %}">Добавить новость</a></li>
             {% endif %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_contact_mail' %}">Обратная связь</a></li>
         </ul>
-        <span class="navbar-text">
-            {% if request.user.is_authenticated %}
-            Добро пожаловать, {{ user.username }} |
-            <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Выход</a>
-            {% else %}
-            <a href="{% url 'user_login' %}" class="btn btn-primary btn-sm">Авторизоватся</a>
-            <a href="{% url 'user_register' %}" class="btn btn-secondary btn-sm">Зарегистрироватся</a>
-            {% endif %}
-        </span>
+        {% if request.user.is_authenticated %}
+            <span class="navbar-text">
+                Добро пожаловать, {{ user.username|title }} <a href="{% url 'user_logout' %}"
+                                                               class="btn btn-primary btn-sm">Выход</a>
+            </span>
+        {% else %}
+                <span class="'navbar-text">
+                    <a href="{% url 'user_register' %}" class="btn btn-primary btn-sm">Регистрация</a>
+                    <a href="{% url 'user_login' %}" class="btn btn-primary btn-sm">Вход</a>
+                </span>
+
+        {% endif %}
     </div>
 </nav>
