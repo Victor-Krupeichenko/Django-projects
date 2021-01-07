@@ -25,7 +25,7 @@
         {% endif %}
 
         <h5 class="card-title">{{ item.title }}</h5>
-        <p class="card-text">{{ item.content|linebreaks}}</p>
+        <p class="card-text">{{ item.content|safe|linebreaks}}</p>
 
     </div>
     <div class="card-footer text-muted">Опубликовано: {{ item.created_at }}</div>
