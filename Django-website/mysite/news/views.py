@@ -1,11 +1,28 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
 from .models import News, Category
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
+from django.core.mail import send_mail
 
+def user_contact_mail(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail =send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
+                            'Victor_krupeichenko@hotmail.com', ['krupeichenkovictor@gmail.com'], fail_silently=False)
+            if mail:
+                messages.success(request, 'Письмо успешно отправлено')
+                return redirect('home')
+            else:
+                messages.error(request, 'Ошибка отправки')
+        else:
+            messages.error(request, 'Ошибка валидации')
+    else:
+        form = ContactForm()
+    return render(request, 'news/user_mail.html', {'form':form})
 
 
 def user_register(request):
@@ -17,7 +34,7 @@ def user_register(request):
             messages.success(request, 'Регистрация прошла успешно')
             return redirect('home')
         else:
-            messages.error(request, 'Ошибка регистраии')
+            messages.error(request, 'Ошибка регистрации')
     else:
         form = UserRegisterForm()
     return render(request, 'news/user_register.html', {'form':form})
@@ -36,7 +53,8 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('user_login')
+
 
 
 class NewsHome(ListView):
