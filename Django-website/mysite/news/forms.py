@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import News
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from captcha.fields import CaptchaField
 
 
 
@@ -39,3 +40,4 @@ class ContactForm(forms.Form):
     subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class':'form-control'}))
     content = forms.CharField(label='Текст', widget=forms.Textarea(attrs={'class':'form-control', 'rows':5}))
     files = forms.Field(label='Файл', widget = forms.FileInput, required=False)
+    captcha = CaptchaField()
