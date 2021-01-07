@@ -1,2 +1,5 @@
+{% load cache %}
+{% cache 30 sidebar %}
 {% load news_tags %}
 {% show_categories %}
+{% endcache %}
