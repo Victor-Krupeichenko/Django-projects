@@ -11,14 +11,17 @@ from django.db.models import F
 
 def user_contact_mail(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
-            mail =EmailMessage(form.cleaned_data['subject'], form.cleaned_data['content'],
+            mail = EmailMessage(form.cleaned_data['subject'], form.cleaned_data['content'],
                             'Victor_krupeichenko@hotmail.com', ['krupeichenkovictor@gmail.com'])
-            file = r'E:\All programs\development\Django-projects\Django-website\mysite\media\photos\1.pdf'
-
+            if request.FILES:
+                file = request.FILES['files']
+                mail.attach(file.name, file.read(), file.content_type)
+                mail.send(fail_silently=True)
+                messages.success(request, 'Письмо успешно отправлено')
+                return redirect('home')
             if mail:
-                mail.attach_file(file)
                 mail.send(fail_silently=True)
                 messages.success(request, 'Письмо успешно отправлено')
                 return redirect('home')
