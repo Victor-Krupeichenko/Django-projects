@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extrastyle %}
-<link rel="stylesheet" href="{% static 'css/add_news.css' %}">
+<link rel="stylesheet" href="{% static 'css/ad_news.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -11,8 +11,10 @@
 
 
 {% block content %}
+<h1>Добавить новость</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.non_field.errors }}
     <div class="form-group">
         <label for="{{ form.title.id_for_label }}">Название:</label>
