@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from django.core.mail import send_mail
+from django.db.models import F
+
 
 def user_contact_mail(request):
     if request.method == 'POST':
@@ -92,6 +94,13 @@ class ViewNews(DetailView):
     model = News
     template_name = 'news/view_news.html'
     context_object_name = 'item'
+
+    def get_context_data(self, **kwargs):
+        context = super(ViewNews, self).get_context_data(**kwargs)
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
+        return context
 
 class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
