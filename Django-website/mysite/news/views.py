@@ -19,16 +19,18 @@ def user_contact_mail(request):
                 file = request.FILES['files']
                 mail.attach(file.name, file.read(), file.content_type)
                 mail.send(fail_silently=True)
-                messages.success(request, 'Письмо успешно отправлено')
-                return redirect('home')
-            if mail:
-                mail.send(fail_silently=True)
-                messages.success(request, 'Письмо успешно отправлено')
+                messages.success(request, 'Письмо успешно отправлено!')
                 return redirect('home')
             else:
-                messages.error(request, 'Ошибка отправки')
+                messages.error(request, 'Ошибка отправки!')
+            if mail:
+                mail.send(fail_silently=True)
+                messages.success(request, 'Письмо успешно отправлено!')
+                return redirect('home')
+            else:
+                messages.error(request, 'Ошибка отправки!')
         else:
-            messages.error(request, 'Ошибка валидации')
+            messages.error(request, 'Ошибка валидации!!!')
     else:
         form = ContactForm()
     return render(request, 'news/user_mail.html', {'form':form})
@@ -40,10 +42,10 @@ def user_register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, 'Регистрация прошла успешно')
+            messages.success(request, 'Регистрация прошла успешно!')
             return redirect('home')
         else:
-            messages.error(request, 'Ошибка регистрации')
+            messages.error(request, 'Ошибка регистрации!!!')
     else:
         form = UserRegisterForm()
     return render(request, 'news/user_register.html', {'form':form})
