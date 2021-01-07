@@ -5,7 +5,7 @@ from .models import News, Category
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.db.models import F
 
 
@@ -13,9 +13,13 @@ def user_contact_mail(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            mail =send_mail(form.cleaned_data['subject'], form.cleaned_data['content'],
-                            'Victor_krupeichenko@hotmail.com', ['krupeichenkovictor@gmail.com'], fail_silently=False)
+            mail =EmailMessage(form.cleaned_data['subject'], form.cleaned_data['content'],
+                            'Victor_krupeichenko@hotmail.com', ['krupeichenkovictor@gmail.com'])
+            file = r'E:\All programs\development\Django-projects\Django-website\mysite\media\photos\1.pdf'
+
             if mail:
+                mail.attach_file(file)
+                mail.send(fail_silently=True)
                 messages.success(request, 'Письмо успешно отправлено')
                 return redirect('home')
             else:
