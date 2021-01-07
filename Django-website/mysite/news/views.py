@@ -21,8 +21,6 @@ def user_contact_mail(request):
                 mail.send(fail_silently=True)
                 messages.success(request, 'Письмо успешно отправлено!')
                 return redirect('home')
-            else:
-                messages.error(request, 'Ошибка отправки!')
             if mail:
                 mail.send(fail_silently=True)
                 messages.success(request, 'Письмо успешно отправлено!')
