@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect, render
-from .models import News, Category
+from .models import News, Category, UserContactMail
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
@@ -122,3 +122,8 @@ class CreateNews(LoginRequiredMixin, CreateView):
         context = super(CreateNews, self).get_context_data(**kwargs)
         context['title'] = 'Добавить новость'
         return context
+
+
+class SendEmail(CreateView):
+    form_class = UserContactMail
+    template_name = 'news/user_register.html'
