@@ -13,10 +13,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser or request.user.is_staff %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_news' %}">Добавить новость</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'user_contact_mail' %}">Обратная связь</a></li>
+                <li class="nav_item"><a class="nav-link" href="{% url 'admin:index' %}">Адинка</a></li>
             {% endif %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'user_contact_mail' %}">Обратная связь</a></li>
         </ul>
         {% if request.user.is_authenticated %}
             <span class="navbar-text">
