@@ -11,6 +11,4 @@
 <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
 {% endblock %}
 
-{% block nav-global %}
-<li class="nav-item"><a class="nav-link" href="{% url 'home' %}">На сайт</a></li>
-{% endblock %}
+{% block nav-global %}{% endblock %}
