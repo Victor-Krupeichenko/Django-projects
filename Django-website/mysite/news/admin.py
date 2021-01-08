@@ -5,7 +5,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 class NewsAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorUploadingWidget())
+    content = forms.CharField(widget=CKEditorUploadingWidget(), label='Текст')
     class Meta:
         model = News
         fields = '__all__'
