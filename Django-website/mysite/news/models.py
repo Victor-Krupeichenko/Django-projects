@@ -45,3 +45,11 @@ class Category(models.Model):
         }
         return reverse_lazy('category', kwargs=context)
 
+
+class UserContactMail(models.Model):
+    user_name = models.CharField(blank=True, verbose_name='Имя', max_length=150)
+    email = models.EmailField(blank=True, verbose_name='E-mail')
+    content = RichTextUploadingField(db_index=True, verbose_name='Текст')
+
+    def __str__(self):
+        return self.user_name, self.content, self.email
