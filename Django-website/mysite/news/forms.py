@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import News
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from captcha.fields import CaptchaField
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class NewsForm(forms.ModelForm):
@@ -38,6 +38,6 @@ class UserLoginForm(AuthenticationForm):
 
 class ContactForm(forms.Form):
     subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class':'form-control'}))
-    content = forms.CharField(label='Текст', widget=forms.Textarea(attrs={'class':'form-control', 'rows':5}))
+    content = forms.CharField(label='Текст', widget= CKEditorUploadingWidget())
     files = forms.Field(label='Файл', widget = forms.FileInput, required=False)
     captcha = CaptchaField()
